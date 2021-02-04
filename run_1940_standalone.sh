@@ -1,32 +1,10 @@
 # This script runs the 2018 End-to-End Census Disclosure Avoidance System as a standalone cluster within an AWS EC2 instance using AMI ID ami-0de53d8956e8dcf80
 # with input from the 1940 Census as distributed by IPUMS.
 
-export EXT1940USCB=/home/$USER/das_files/EXT1940USCB.dat
-export LOCALDEST=/home/$USER/das_files/output
 export GRB_ISV_NAME='Standalone'
 export GRB_APP_NAME='DAS'
 
 CONFIG=E2E_1940_STANDALONE_CONFIG.ini
-
-cmd() {
-  echo
-  echo $*
-  $*
-}
-
-# File Locations 
-
-export EXT1940USCB=/home/$USER/das_files/EXT1940USCB.dat
-export LOCALDEST=/home/$USER/das_files/output
-
-# Spark Standalone configuration
-NUM_EXECUTORS=1
-DRIVER_MEMORY=5g
-EXECUTOR_MEMORY=16g
-EXECUTOR_CORES=4
-DRIVER_CORES=10
-EXECUTOR_MEMORY_OVERHEAD=20g
-DRIVER_MAXRESULTS_SIZE=0g
 
 cmd() {
   echo
@@ -41,11 +19,11 @@ export LOCALDEST=$HOME/das_files/output
 
 # Spark Standalone configuration
 NUM_EXECUTORS=1
-DRIVER_MEMORY=5g
-EXECUTOR_MEMORY=16g
-EXECUTOR_CORES=4
-DRIVER_CORES=10
-EXECUTOR_MEMORY_OVERHEAD=20g
+DRIVER_MEMORY=11g
+EXECUTOR_MEMORY=11g
+EXECUTOR_CORES=5
+DRIVER_CORES=5
+EXECUTOR_MEMORY_OVERHEAD=1g
 DRIVER_MAXRESULTS_SIZE=0g
 
 echo Validating runtime environment
@@ -107,6 +85,8 @@ spark-submit --py-files $ZIPFILE \
     --conf spark.eventLog.dir=$LOGDIR \
     --conf spark.driver.maxResultSize=$DRIVER_MAXRESULTS_SIZE \
     --conf spark.executor.memoryOverhead=$EXECUTOR_MEMORY_OVERHEAD \
+    --conf spark.dynamicAllocation.enabled=true \
+    --conf spark.python.worker.memory=11g \
     --driver-memory $DRIVER_MEMORY \
     --driver-cores $DRIVER_CORES \
     --num-executors $NUM_EXECUTORS \

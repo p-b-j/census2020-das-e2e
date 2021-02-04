@@ -5,15 +5,15 @@
 # It can be re-run without problem.
 #
 
-GUROBI_INSTALLER=/usr/local/src/gurobi7.5.2_linux64.tar.gz
-GUROBI_BASE=/usr/local/gurobi752
+GUROBI_INSTALLER=/usr/local/src/gurobi9.1.1_linux64.tar.gz
+GUROBI_BASE=/usr/local/gurobi911
 GUROBI_HOME=$GUROBI_BASE/linux64
 GRB_LICENSE_FILE=$HOME/gurobi.lic
 
 if [ ! -r $GUROBI_INSTALLER ]; then
   echo Gurobi installer not found, will try downloading
   sudo curl -o $GUROBI_INSTALLER \
-  https://packages.gurobi.com/7.5/gurobi7.5.2_linux64.tar.gz
+  https://packages.gurobi.com/9.1/gurobi9.1.1_linux64.tar.gz
 fi
 
 if [ ! -r $GUROBI_INSTALLER ]; then

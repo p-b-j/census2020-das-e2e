@@ -14,23 +14,16 @@ cd ~
 mkdir das_files
 mkdir das_files/output
 
-wget http://mirrors.ibiblio.org/apache/spark/spark-2.4.0/spark-2.4.0-bin-hadoop2.7.tgz || exit 1
-tar xzf spark-2.4.0-bin-hadoop2.7.tgz || exit 1
-wget http://ftp.wayne.edu/apache/hadoop/common/hadoop-3.1.2/hadoop-3.1.2.tar.gz || exit 1
-tar xzf hadoop-3.1.2.tar.gz || exit 1
-
 # Add to ~/.bashrc:
 if ! grep DAS_VERSION $HOME/.bashrc >/dev/null 2>&1 ; then
-  echo 'export LD_LIBRARY_PATH=/usr/local/gurobi752/linux64/lib:$HOME/hadoop-3.1.2/lib/native 
-export GUROBI_HOME=/usr/local/gurobi752/linux64
-export PATH=$PATH:/usr/local/gurobi752/linux64/bin
+  echo 'export LD_LIBRARY_PATH=/usr/local/gurobi911/linux64/lib:/usr/local/hadoop-3.1.4/lib/native
+export GUROBI_HOME=/usr/local/gurobi911/linux64
+export PATH=$PATH:/usr/local/gurobi911/linux64/bin
 export GRB_LICENSE_FILE=$HOME/gurobi.lic
-export PATH=$PATH:$HOME/spark-2.4.0-bin-hadoop2.7/bin
 export PATH=$PATH:/usr/local/anaconda3/bin
 export PYSPARK_PYTHON=/usr/local/anaconda3/bin/python3.6
 export PYSPARK_DRIVER_PYTHON=/usr/local/anaconda3/bin/python3.6
-export SPARK_HOME='$HOME/spark-2.4.0-bin-hadoop2.7'
-export PATH=$SPARK_HOME:$PATH
+export SPARK_HOME=/usr/local/spark/spark-2.4.7-bin-hadoop2.7
 export PYTHONPATH=$SPARK_HOME/python:$PYTHONPATH
 export DAS_VERSION=Standalone' >> ~/.bashrc
 fi
@@ -43,3 +36,4 @@ sudo /usr/local/anaconda3/bin/python3 setup.py install || exit 1
 
 sudo yum -y install python-pip texlive || exit 1
 python3 -m pip install pytest pyspark --user || exit 1
+
