@@ -24,7 +24,7 @@ def getGurobiEnvironment(config, retries=10):
     """
     clogging.setup(syslog=True)
     logging.info("Creating environment...")
-    os.environ[GRB_LICENSE_FILE] = config[GUROBI][GUROBI_LIC]
+    os.environ[GRB_LICENSE_FILE] = os.path.expandvars(config[GUROBI][GUROBI_LIC])
     cluster = config.get(ENVIRONMENT, CLUSTER_OPTION, fallback=CENSUS_CLUSTER)
     env = None
     rand_wait_base = np.random.uniform(1, 3)
